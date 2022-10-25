@@ -40,9 +40,6 @@
         let angle = 0;
         let scale = 1;
 
-        let state = 0;
-        let left = document.getElementById("draw").offsetWidth/2;
-        let origin_top = document.getElementById("draw").offsetHeight/2;
 
         let pos = 0.3;
         var phi;
@@ -84,6 +81,10 @@
         }
 
         function draw(){
+            let state = 0;
+        let left = document.getElementById("draw").offsetWidth/2;
+        let origin_top = document.getElementById("draw").offsetHeight/2;
+
             //translate(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
             var dp = Math.round(pos * 1000) / 1000 - Math.round(p * 1000) / 1000;
             console.log(p);
@@ -92,7 +93,7 @@
             if (dp != 0){
                 left = document.getElementById("draw").offsetWidth/2;
                 origin_top = document.getElementById("draw").offsetHeight/2;
-                canva_angle = (canva_angle-p*10)%360;
+                canva_angle = p%360;
                 //console.log(canva_angle);
                 document.getElementById("draw").style.transform = "rotate("+canva_angle+"deg)";
                 for (let i=0 ; i < fibs.length-2 ; i++){
@@ -132,7 +133,7 @@
                     }
                     
                     if (i > 10){
-                        divs[i].innerHTML = i;
+                        divs[i].innerHTML = scale;
                     }
                     // if (i>10){
                     //     divs[i].innerHTML = "";
@@ -165,7 +166,7 @@
         addEventListener('wheel', (event) => {
             event.preventDefault();
             //console.log(event.deltaY);
-            pos += event.deltaY*0.00001;
+            pos += event.deltaY;
             draw();
         } ,  { passive: false });
         console.log(minScale , maxScale);
